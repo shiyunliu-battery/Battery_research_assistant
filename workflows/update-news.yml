@@ -1,0 +1,31 @@
+name: Update News Feed
+
+on:
+  schedule:
+    - cron: '0 */4 * * *'  # 每4小时运行一次
+  workflow_dispatch:  # 允许手动触发
+
+jobs:
+  update-news:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'
+    
+    - name: Fetch and Update News
+      run: |
+        # 这里可以添加你的脚本来获取最新新闻
+        # 例如 Python 或 Node.js 脚本来处理 RSS 源
+        echo "Fetching latest battery research news..."
+        
+    - name: Commit and Push
+      run: |
+        git config user.name github-actions
+        git config user.email github-actions@github.com
+        git add .
+        git commit -m "Update news feed"
+        git push
